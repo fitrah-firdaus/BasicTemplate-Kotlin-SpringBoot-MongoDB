@@ -1,0 +1,61 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.3.RELEASE'
+        kotlin_version = '1.1.2-2'
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'application'
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+jar {
+    baseName = 'sis-core'
+    version = '0.0.1'
+}
+
+
+ext {
+    springCloudVersion = 'Dalston.RELEASE'
+}
+
+springBoot{
+    mainClass = "com.fef.sis.SISApplication"
+}
+
+dependencies {
+//    compile('org.springframework.cloud:spring-cloud-starter-oauth2')
+    compile('org.springframework.boot:spring-boot-starter-data-mongodb')
+//    compile('org.springframework.boot:spring-boot-starter-data-redis')
+    compile('org.springframework.boot:spring-boot-starter-data-rest')
+//    compile('org.springframework.kafka:spring-kafka')
+//    compile('org.springframework.boot:spring-boot-starter-security')
+//    compile('org.springframework.session:spring-session')
+    compile('org.springframework.boot:spring-boot-starter-validation')
+    compile("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
